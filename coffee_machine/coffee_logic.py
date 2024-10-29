@@ -1,6 +1,6 @@
 from menu_and_resources import menu, resources
 
-coffee_options = ['espresso', 'latte', 'cappuccino']
+coffee_options = ['expresso', 'latte', 'cappuccino']
 current_earnings = 0
 resources_left = resources
 
@@ -49,7 +49,7 @@ def is_transaction_successful(user_coins: float, choice: str) -> str:
 continue_processing =  True
 while continue_processing:
     #TODO : 1. Prompt user by asking “ What would you like? (espresso/latte/cappuccino): ”
-    user_choice = input("What would you like? (espresso/latte/cappuccino): ").lower()#TODO : 2. Turn off the Coffee Machine by entering “ off ” to the prompt.
+    user_choice = input("What would you like? (expresso/latte/cappuccino): ").lower()#TODO : 2. Turn off the Coffee Machine by entering “ off ” to the prompt.
 
     if user_choice == 'off':
         continue_processing = False
@@ -80,7 +80,7 @@ while continue_processing:
                 resources_left = resources_calculation
 
                 #TODO: 7. Make Coffee.
-                print(f'Here is your {user_choice}. Enjoy!')
+                print(f'Here is your {user_choice} ☕️. Enjoy!')
                 continue_processing = True
             else:
                 continue_processing = False
