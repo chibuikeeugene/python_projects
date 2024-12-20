@@ -25,25 +25,25 @@ class Snake(Turtle):
             new_segment.goto(coord)
             self.snake_segments.append(new_segment)
 
-    def move(self):
+    def move(self): # makes the snake to move
         for index in range(len(self.snake_segments) - 1, 0, -1):
             x_cor, y_cor = self.snake_segments[index - 1].position()
             self.snake_segments[index].goto(x_cor, y_cor)
 
         self.head.forward(DISTANCE)
 
-    def up(self):
+    def up(self): # changes the snake direction to up with a keypad stroke
         if self.head.heading() != DOWN:
             self.head.setheading(UP)
 
-    def down(self):
+    def down(self): # changes the snake direction to down with a keypad stroke
         if self.head.heading() != UP:
             self.head.setheading(DOWN)
 
-    def right(self):
+    def right(self): # changes the snake direction to right with a keypad stroke
         if self.head.heading() != LEFT:
             self.head.setheading(RIGHT)
 
-    def left(self):
+    def left(self): # changes the snake direction to left with a keypad stroke
         if self.head.heading() != RIGHT:
             self.head.setheading(LEFT)
