@@ -9,11 +9,13 @@ RIGHT = 0
 LEFT = 180
 
 class Snake(Turtle):
-    def __init__(self) -> None:
+    def __init__(self) -> None: # initialize a new snake with these attributes
         super().__init__()
         self.snake_segments = [] # holds all the new snake segment
         self.create_snake()
-        self.head = self.snake_segments[0]
+        self.head = self.snake_segments[0] # the first segment of the snake body now refered to as the head
+        self.tail = self.snake_segments[-1]
+        self.hideturtle() # used to hide the default turtle obj created by snake_segments - which is a cursor
         
 
     def create_snake(self): # creates the individual parts of the snake
@@ -31,6 +33,15 @@ class Snake(Turtle):
             self.snake_segments[index].goto(x_cor, y_cor)
 
         self.head.forward(DISTANCE)
+    
+    def grow(self): # increase snake length as it feeds
+        new_body = Turtle()
+        new_body.color('white')
+        new_body.shape('square')
+        new_body.penup()
+        x_cor, y_cor = self.tail.position()
+        new_body.teleport(x_cor, y_cor)
+        self.snake_segments.append(new_body)
 
     def up(self): # changes the snake direction to up with a keypad stroke
         if self.head.heading() != DOWN:
@@ -47,3 +58,4 @@ class Snake(Turtle):
     def left(self): # changes the snake direction to left with a keypad stroke
         if self.head.heading() != RIGHT:
             self.head.setheading(LEFT)
+
