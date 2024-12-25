@@ -7,3 +7,5 @@
 5. Keeping track of score with a score board
 6. Detecting Collision with wall
 7. Detecting Collision with tail
+
+![Snake UI](My_Snake_Game_and_main_py_—_python_projects.png)

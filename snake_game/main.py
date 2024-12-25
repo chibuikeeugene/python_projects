@@ -47,7 +47,11 @@ while continue_game: # running a continuous loop for snake object's movement
         continue_game = False
         scoreboard.game_over()
 
-        # if snake collides with its own body
+    # if snake collides with its own body
+    for body_parts in snake.snake_segments[2:]:
+        if snake.head.distance(body_parts) < 15:
+            continue_game = False
+            scoreboard.game_over()
         
     
 
