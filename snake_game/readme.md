@@ -8,4 +8,4 @@
 6. Detecting Collision with wall
 7. Detecting Collision with tail
 
-![Snake UI](My_Snake_Game_and_main_py_—_python_projects.png)
+![Snake UI](My_Snake_Game.png)
