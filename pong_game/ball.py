@@ -9,6 +9,7 @@ class Ball(Turtle):
         self.penup()
         self.x_pos = 10 # incremental x position of the ball
         self.y_pos = 10 # incremental y position of the ball
+        self.ball_speed = 0.1
 
     def move(self):
         x_new = self.xcor() + self.x_pos
@@ -20,6 +21,8 @@ class Ball(Turtle):
 
     def change_x_direction(self):
         self.x_pos *= -1
+        self.ball_speed *=0.5
 
     def reset_position(self):
         self.setposition(0,0)
+        self.ball_speed =0.1

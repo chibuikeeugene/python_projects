@@ -11,10 +11,10 @@ class Scoreboard(Turtle):
         
         
     def update_scoreboard(self):
-        self.goto(-100, 280)
-        self.write(f"{self.l_score}", align='left', font=('Arial', 20, 'normal'))
-        self.goto(100, 280)
-        self.write(f"{self.r_score}", align='right', font=('Arial', 20, 'normal'))
+        self.goto(-100, 220)
+        self.write(f"{self.l_score}", align='left', font=('Courier', 80, 'normal'))
+        self.goto(100, 220)
+        self.write(f"{self.r_score}", align='right', font=('Courier', 80, 'normal'))
         self.hideturtle()
 
     # award points to the left bat
