@@ -11,7 +11,7 @@ screen.title('Turtle Crossing')
 screen.tracer(0)
 
 turtle_player =  Player()
-cars  = CarManager()
+carmanager  = CarManager()
 
 ### defining keypress event
 screen.onkey(turtle_player.move, "Up")
@@ -20,9 +20,10 @@ screen.listen() # listen for keypress events
 game_is_on = True
 while game_is_on:
     # setting delay for screen updating
-    time.sleep(0.1)
+    time.sleep(0.5)
     
-    # cars.move()
+    carmanager.create_car()
+    carmanager.move()
 
     screen.update()
 

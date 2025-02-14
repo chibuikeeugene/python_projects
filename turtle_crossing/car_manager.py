@@ -1,5 +1,6 @@
 from turtle import Turtle
-from random import randrange
+import random
+import time
 
 
 COLORS = ["red", "orange", "yellow", "green", "blue", "purple"]
@@ -12,23 +13,22 @@ class CarManager(Turtle):
     def __init__(self):
         super().__init__()
         self.car_list =  [] # hold all car blueprints
-        self.cars() # initialize all car prototype
-        
+        self.speed = 0    
 
-    def cars(self):
-        for _ in COLORS:
-            car =  Turtle()
-            car.shape('square')
-            car.color(_)
-            car.shapesize(stretch_wid=1, stretch_len=2)
-            car.penup()
-            self.car_list.append(car)
-            self.hideturtle()
+    def create_car(self):
+        car =  Turtle()
+        car.shape('square')
+        car.color(random.choice(COLORS))
+        car.shapesize(stretch_wid=1, stretch_len=2)
+        car.penup()
+        car.goto(300, random.randrange(-250, 250, 10))
+        car.setheading(180)
+        self.car_list.append(car)
+        self.hideturtle()
         
     def move(self):
         for car in self.car_list:
-            car.goto(250, randrange(-250, 250, 40))
-            car.setheading(180)
-            car.forward(STARTING_MOVE_DISTANCE)
+            car.forward(random.randint(10, 20))
             
-        
+    def increase_speed(self):
+        self.speed += MOVE_INCREMENT
