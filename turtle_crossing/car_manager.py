@@ -4,7 +4,6 @@ import time
 
 
 COLORS = ["red", "orange", "yellow", "green", "blue", "purple"]
-STARTING_MOVE_DISTANCE = 5
 MOVE_INCREMENT = 10
 
 
@@ -13,7 +12,7 @@ class CarManager(Turtle):
     def __init__(self):
         super().__init__()
         self.car_list =  [] # hold all car blueprints
-        self.speed = 0    
+        self.speed = 10    
 
     def create_car(self):
         car =  Turtle()
@@ -28,7 +27,8 @@ class CarManager(Turtle):
         
     def move(self):
         for car in self.car_list:
-            car.forward(random.randint(10, 20))
+            car.forward(self.speed)
             
     def increase_speed(self):
         self.speed += MOVE_INCREMENT
+        self.move()

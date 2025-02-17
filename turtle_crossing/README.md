@@ -7,4 +7,4 @@
 5. Detect when the player has reached the top which is the other end of the screen( or preferably the north)
 6. Increase the player speed if it reaches the other end
 7. Capture the level using a scoreboard
-8. Captur game over when the player collides with a car.
+8. Capture game over when the player collides with a car.
