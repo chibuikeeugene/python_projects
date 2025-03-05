@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 import random
 import pyperclip
+import json
 
 
 
@@ -34,6 +35,12 @@ def save():
     website_value = website_entry_.get()
     email_value = email_entry_.get()
     password_value = password_entry_.get()
+    new_data = {
+        website_value:{
+            'email': email_value,
+            'password': password_value
+        }
+    }
 
     # validate if the user has left any field empty
     if len(website_value) == 0 or len(password_value) == 0:
@@ -45,8 +52,28 @@ def save():
         dialog = messagebox.askokcancel(title=website_value, message=f'These are the details entered: \nEmail: {email_value}\nPassword: {password_value}\nIs it ok to save?')
         
         if dialog: # if the user is happy with the input - that is, if the user clicks 'ok'
-            with open('password-manager/data.txt', 'a') as data:
-                data.write(f'{website_value} | {email_value} | {password_value}\n')
+
+            # reading the data from the json file and updating it
+            try:
+                with open('password-manager/data.json', 'r') as data:
+                    # load the json object
+                    json_data = json.load(data)
+
+            except FileNotFoundError:
+                with open('password-manager/data.json', 'w') as data:
+                    # write to the json object
+                    json.dump(new_data, data, indent=4)
+            else:
+                # update the json object
+                json_data.update(new_data)
+
+                 # writing the updated data to the json file
+                with open('password-manager/data.json', 'w') as data:
+                # load the json object
+                    json.dump(json_data, data, indent=4)
+            
+            finally:
+                # clear the fields
                 website_entry_.delete(0, tk.END)
                 password_entry_.delete(0, tk.END)
                 website_entry_.focus()
