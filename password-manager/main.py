@@ -4,6 +4,28 @@ import random
 import pyperclip
 import json
 
+# ---------------------------- SEARCH FUNCTION ------------------------------- #
+def find_password():
+    """Search for a password in the data.json file"""
+    website_value = website_entry_.get()
+
+    try:
+        with open('password-manager/data.json', 'r') as data:
+            # load the json object
+            json_data = json.load(data)
+    except FileNotFoundError:
+        messagebox.showinfo(title='Oops', message='No Data File Found. Add a new entry first')
+    
+    else:
+        json_data_keys = json_data.keys()
+        if website_value not in json_data_keys:
+            messagebox.showinfo(title='Oops', message='No details for the website exists.')
+        else:
+            result = json_data[website_value] # look up the website in the json object
+            email = result['email'] # get the email
+            password = result['password']   # get the password
+
+            messagebox.showinfo(title=website_value, message=f'{website_value}\nEmail: {email}\nPassword: {password}')
 
 
 
@@ -129,5 +151,7 @@ password_button.grid(row=3, column=2)
 add_button =  tk.Button(text='Add', width=36, command=save)
 add_button.grid(row=4, column=1, columnspan=2)
 
+search_button = tk.Button(text='Search', width=13, command=find_password)
+search_button.grid(row=1, column=2)
 
 tk.mainloop()
