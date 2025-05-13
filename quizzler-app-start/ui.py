@@ -16,10 +16,11 @@ class QuizInterface:
                               padx=20,
                               pady=20
                               )
+        self.score = self.quiz.score
 
 
         # create the score label
-        self.score_label = tk.Label(text= f'Score: {0}',
+        self.score_label = tk.Label(text= f'Score: {self.score}',
                                padx=20,
                                pady=20,
                                background=THEME_COLOR,
@@ -30,12 +31,13 @@ class QuizInterface:
         self.canvas = tk.Canvas(background='white', height=250, width=300)
         self.canvas.grid(row=1, column=0, columnspan=2, pady=40)
 
-        question_text = self.get_next_qeustion()
+        self.question_text = self.get_next_qeustion()
+
         self.canvas_text = self.canvas.create_text(
             150,
             125,
             width=200,
-            text=question_text,
+            text=self.question_text,
             fill=THEME_COLOR,
             font=('Arial', 20, 'italic'))
 
@@ -54,15 +56,24 @@ class QuizInterface:
         """return the next quiz question """
         return self.quiz.next_question()
     
-    def get_correct_answer(self):
+    def get_correct_answer(self, user_input:str):
         """check if user's answer matches the correct answer"""
-        self.quiz.check_answer()
+        self.quiz.check_answer(user_answer=user_input)
 
     def select_true(self) -> bool:
         """return user true selection"""
-        return True
+        self.get_correct_answer(user_input='true')
+        self.score_label.config(text= f'Score: {self.quiz.score}')
+        if self.quiz.still_has_questions():
+            self.question_text = self.get_next_qeustion()
+            self.canvas.itemconfig(self.canvas_text, text = self.question_text)
+        
     
     def select_false(self) -> bool:
         """return user false selection"""
-        return False
+        self.get_correct_answer(user_input='false')
+        self.score_label.config(text= f'Score: {self.quiz.score}')
+        if self.quiz.still_has_questions():
+            self.question_text = self.get_next_qeustion()
+            self.canvas.itemconfig(self.canvas_text, text = self.question_text)
 
