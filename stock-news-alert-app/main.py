@@ -2,10 +2,15 @@ import os
 import requests
 from datetime import timedelta
 from datetime import datetime as dt
+from dotenv import load_dotenv
+
+
+load_dotenv()
 
 STOCK = "TSLA"
 COMPANY_NAME = "Tesla Inc"
 STOCK_API_KEY =  os.getenv('ALPHA_VANTAGE_STOCK_API_KEY')
+
 STOCK_API_ENDPOINT = 'https://www.alphavantage.co/query?'
 STOCK_BASE_URL = f'{STOCK_API_ENDPOINT}function=TIME_SERIES_DAILY&symbol={STOCK}&apikey={STOCK_API_KEY}'
 
@@ -13,11 +18,7 @@ STOCK_BASE_URL = f'{STOCK_API_ENDPOINT}function=TIME_SERIES_DAILY&symbol={STOCK}
 NEWS_API_KEY = os.getenv('NEWS_API_KEY')
 NEWS_BASE_URL = 'https://newsapi.org/v2/everything'
 
-
-
-
-## STEP 1: Use https://www.alphavantage.co
-# When STOCK price increase/decreases by 5% between yesterday and the day before yesterday then print("Get News").
+## STEP 1: When STOCK price increase/decreases by 5% between yesterday and the day before yesterday then print("Get News").
 STOCK_DATA_EXIST =  True
 
 while STOCK_DATA_EXIST:
@@ -26,7 +27,7 @@ while STOCK_DATA_EXIST:
 
     yesterday_date_str = str(today_date - timedelta(days=1))
 
-    day_before_yesterday_date_str = str(today_date - timedelta(days=2))
+    day_before_yesterday_date_str = str(today_date - timedelta(days=4)) # set to 2 later
 
     # fetch stock data
     response =  requests.get(
@@ -49,14 +50,13 @@ while STOCK_DATA_EXIST:
     # compute the percentage difference
     per_diff = round((((yday_stk_price_ending - day_before_yday_stk_price_ending) / day_before_yday_stk_price_ending) * 100), 2)
 
-## STEP 2: Use https://newsapi.org
-# Instead of printing ("Get News"), actually get the first 3 news pieces for the COMPANY_NAME.
+## STEP 2: Instead of printing ("Get News"), actually get the first 3 news pieces for the COMPANY_NAME.
 
-    if per_diff >= 0.5 or per_diff >= -0.5: # check if the difference is greater than or equal to 5% or negative 5%
+    if per_diff >= 0.1 or per_diff >= -0.1: # check if the difference is greater than or equal to 5% or negative 5%
         # get the first 3 trending news about the organization
         NEWS_PARAM = {
             'q':'tesla',
-            'from': str(today_date),
+            'from': str(day_before_yesterday_date_str),
             'sortBy':'publishedAt',
             'apiKey': NEWS_API_KEY
         }
@@ -67,29 +67,25 @@ while STOCK_DATA_EXIST:
             timeout= 5
         )
 
-        news_dict =  {} # a dictionary object to hold all news data
+        news_list =  [] # a list object to hold all news data
 
         news_data = news_response.json()
 
         # retrieve the first three recent news of the company
         news_items = news_data['articles'][:3]
 
+
         for news_item in news_items:
-            print(news_item)
-
-
-
-
-
-
-
+            news_list.append({'title': news_item['title'], 'descritpion': news_item['description']})
+        print(news_list[0])
 
 
     STOCK_DATA_EXIST = False
 
 
 ## STEP 3: Use https://www.twilio.com
-# Send a seperate message with the percentage change and each article's title and description to your phone number. 
+# Send a seperate message with the percentage change and each article's title and description to your phone number.
+
 
 
 #Optional: Format the SMS message like this: 
