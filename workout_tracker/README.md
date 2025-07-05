@@ -1,0 +1,1 @@
+# A basic workout tracker that uses natural language processing via nutritionix to extract meaningful data from my workout information data and google sheet to save and keep track of my daily workouts routine.
